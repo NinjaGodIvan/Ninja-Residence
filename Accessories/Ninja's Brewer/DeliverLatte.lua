@@ -1,4 +1,4 @@
---Takes Starblox Coffee
+--Takes Creamed Latte
 script.Parent.ClickDetector.MouseClick:Connect(function(player)
 	if not player.Character:FindFirstChild("Creamed Latte") and not player.Backpack:FindFirstChild("Creamed Latte") then
 		
