@@ -1,4 +1,5 @@
---[[List of all Permissions]]
+--[[This script changes the state of the permission settings if guests are allowed
+to use anything in the house.]]
 
 --Doors Permission Option
 local DoorsPermission = script.Parent:FindFirstChild("Doors Permission Option")
@@ -13,12 +14,7 @@ local KitchenEnableButton = KitchenPermission:FindFirstChild("Enable Button")
 local BathroomPermission = script.Parent:FindFirstChild("Bathroom Permission Option")
 local BathroomEnableButton = BathroomPermission:FindFirstChild("Enable Button")
 
---Server needs to deal with player's house settings
-local HS_Handler = game.ReplicatedStorage:FindFirstChild("HS Handler")
-
---[[Handles "Yes" and "No" Options
-1st arg: References Option Frame
-2nd arg: Permission Key]]
+--Switches the button state and communicates with the server for enabling or disabling permissions 
 function OptionHandler(option_name, permission_key)
 	
 	--Option Frame
@@ -41,11 +37,24 @@ function OptionHandler(option_name, permission_key)
 	end
 	
 	--Tells server to change player's house properties
-	HS_Handler:FireServer(permission_key, can_allow)
+	game.ReplicatedStorage:FindFirstChild("HS Permissions Handler"):FireServer(permission_key, can_allow)
 end
 
+
+
 --[[List of all enable buttons]]
-DoorsEnableButton.MouseButton1Click:Connect(function() OptionHandler("Doors Permission Option", 1) end)
-LightsEnableButton.MouseButton1Click:Connect(function() OptionHandler("Lights Permission Option", 2) end)
-KitchenEnableButton.MouseButton1Click:Connect(function() OptionHandler("Kitchen Permission Option", 3) end)
-BathroomEnableButton.MouseButton1Click:Connect(function() OptionHandler("Bathroom Permission Option", 4) end)
+DoorsEnableButton.MouseButton1Click:Connect(function() 
+	OptionHandler("Doors Permission Option", 1) 
+end)
+
+LightsEnableButton.MouseButton1Click:Connect(function() 
+	OptionHandler("Lights Permission Option", 2) 
+end)
+
+KitchenEnableButton.MouseButton1Click:Connect(function() 
+	OptionHandler("Kitchen Permission Option", 3) 
+end)
+
+BathroomEnableButton.MouseButton1Click:Connect(function() 
+	OptionHandler("Bathroom Permission Option", 4) 
+end)
